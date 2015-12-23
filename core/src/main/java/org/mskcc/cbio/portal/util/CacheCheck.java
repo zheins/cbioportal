@@ -4,13 +4,17 @@ package org.mskcc.cbio.portal.util;
 import java.util.*;
 import org.mskcc.cbio.portal.dao.*;
 import org.mskcc.cbio.portal.model.CancerStudy;
-
+import static java.util.concurrent.TimeUnit.*;
 import java.text.ParseException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * Created by heinsz on 12/22/15.
  */
-public class CacheRunnable implements Runnable {
+public class CacheCheck {
+
 
     private static synchronized void reCacheAll(long time) {
 
@@ -73,12 +77,13 @@ public class CacheRunnable implements Runnable {
         }
     }
 
-    public void run() {
-        checkCaching();
-        try {
-            Thread.sleep(2 * 60 * 1000);
-        } catch (InterruptedException e) {
-            return;
-        }
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    public void init() {
+        final Runnable cacheChecker = new Runnable() {
+            public void run() { checkCaching(); }
+        };
+
+        final ScheduledFuture<?> cacheCheckHandler = scheduler.scheduleAtFixedRate(cacheChecker, 0, 2, MINUTES);
     }
 }

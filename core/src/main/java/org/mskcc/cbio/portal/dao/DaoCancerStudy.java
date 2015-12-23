@@ -66,7 +66,10 @@ public final class DaoCancerStudy {
 
     static {
         SpringUtil.initDataSource();
-        (new Thread(new CacheRunnable())).start();
+        reCacheAll(System.currentTimeMillis());
+
+        CacheCheck cacheCheck = new CacheCheck();
+        cacheCheck.init();
     }
 
     private static synchronized void reCacheAll(long time) {
