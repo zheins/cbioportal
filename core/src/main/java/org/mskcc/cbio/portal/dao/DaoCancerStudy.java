@@ -67,9 +67,7 @@ public final class DaoCancerStudy {
     static {
         SpringUtil.initDataSource();
         reCacheAll(System.currentTimeMillis());
-
-        CacheCheck cacheCheck = new CacheCheck();
-        cacheCheck.init();
+        (new Thread(new CacheCheck())).start();
     }
 
     private static synchronized void reCacheAll(long time) {
@@ -191,7 +189,7 @@ public final class DaoCancerStudy {
         ResultSet rs = null;
         try {
             con = JdbcUtil.getDbConnection(DaoCancerStudy.class);
-			pstmt = con.prepareStatement("SELECT count(*) from cancer_study");
+			pstmt = con.prepareStatement("SELECT count(*) from cancer_study where status = 1");
             rs = pstmt.executeQuery();
             if (rs.next()) {
 				return rs.getInt(1);

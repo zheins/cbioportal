@@ -13,7 +13,7 @@ import java.util.concurrent.ScheduledFuture;
 /**
  * Created by heinsz on 12/22/15.
  */
-public class CacheCheck {
+public class CacheCheck implements Runnable {
 
 
     private static synchronized void reCacheAll(long time) {
@@ -36,7 +36,7 @@ public class CacheCheck {
             java.util.Date importDate = null;
             java.util.Date cacheDate = null;
             if (internalId.length > 0) {
-                importDate = DaoCancerStudy.getImportDate(null, internalId[0]);
+                importDate = DaoCancerStudy.getImportDate(stableId, internalId[0]);
                 cacheDate = DaoCancerStudy.cacheDateByInternalId.get(internalId[0]);
             } else {
                 if (stableId.equals(org.mskcc.cbio.portal.util.AccessControl.ALL_CANCER_STUDIES_ID)) {
@@ -77,13 +77,16 @@ public class CacheCheck {
         }
     }
 
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
-    public void init() {
-        final Runnable cacheChecker = new Runnable() {
-            public void run() { checkCaching(); }
-        };
-
-        final ScheduledFuture<?> cacheCheckHandler = scheduler.scheduleAtFixedRate(cacheChecker, 0, 2, MINUTES);
+    public void run() {
+        boolean alive = true;
+        while (alive) {
+            try {
+                checkCaching();
+                Thread.sleep(1 * 60 * 1000);
+            }
+            catch (InterruptedException e) {
+                alive = false;
+            }
+        }
     }
 }
