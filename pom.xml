@@ -176,9 +176,7 @@
                 </goals>
                 <configuration>
                   <tasks>
-                    <copy
-                    file="${basedir}/src/main/resources/portal.properties.EXAMPLE"
-                    tofile="${basedir}/src/main/resources/portal.properties" />
+                    <copy file="src/main/resources/portal.properties.EXAMPLE" tofile="src/main/resources/portal.properties" />
                   </tasks>
                 </configuration>
               </execution>

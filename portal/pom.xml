@@ -122,6 +122,7 @@
                   <filtering>true</filtering>
                   <includes>
                     <include>**/*.properties</include>
+                    <include>**/spring.security.url.intercepts</include>
                   </includes>
                   <excludes>
                     <exclude>**/portal.properties.*</exclude>
@@ -157,7 +158,32 @@
           </execution>
         </executions>
       </plugin>
-    </plugins>
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+          <execution>
+            <id>clean-jar-artifacts</id>
+            <phase>install</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+            <configuration>
+              <excludeDefaultDirectories>true</excludeDefaultDirectories>
+              <filesets>
+                <fileset>
+                  <directory>${project.parent.basedir}/portal/target</directory>
+                  <excludes>
+                    <exclude>*.war</exclude>
+                    <exclude>dependency/webapp-runner.jar</exclude>
+                  </excludes>
+                </fileset>
+              </filesets>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+</plugins>
 
     <filters>
         <filter>../src/main/resources/portal.properties</filter>
