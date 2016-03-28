@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mskcc.cbio.portal.persistence.SampleStatisticMapper">
+
+<select id="getMutationSampleStatisticsByProfile" resultType="DBSampleStatistic">
+select
+    sample.stable_id as sample_id,
+    count(mutation.mutation_event_id) as number_of_events,
+    genetic_profile.genetic_alteration_type as event_type
+    from mutation inner join genetic_profile on mutation.genetic_profile_id = genetic_profile.genetic_profile_id
+        inner join sample on mutation.sample_id=sample.internal_id
+    where genetic_profile.stable_id in <foreach item="item" collection="genetic_profile_ids" open="(" separator="," close=")">#{item}</foreach>
+    group by mutation.sample_id
+</select>
+
+<select id="getCNASampleStatisticsByProfile" resultType="DBSampleStatistic">
+select
+    sample.stable_id as sample_id,
+    count(sample_cna_event.cna_event_id) as number_of_events,
+    genetic_profile.genetic_alteration_type as event_type
+    from sample_cna_event inner join genetic_profile on sample_cna_event.genetic_profile_id = genetic_profile.genetic_profile_id
+        inner join sample on sample_cna_event.sample_id=sample.internal_id
+    where genetic_profile.stable_id in <foreach item="item" collection="genetic_profile_ids" open="(" separator="," close=")">#{item}</foreach>
+    group by sample_cna_event.sample_id
+</select>
+</mapper>
