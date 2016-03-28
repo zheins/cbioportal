@@ -65,6 +65,13 @@ var StudyViewMainController = (function() {
                 case '#summary':
                     $('#study-tab-summary-a').click();
                     break;
+                case '#dashboard':
+                    if($('#study-tab-dashboard-a').length == 0) {
+                        $('#study-tab-dashboard-a').click();
+                    }else {
+                        $('#study-tab-dashboard-a').click();
+                    }
+                    break;
                 default:
                     $('#study-tab-summary-a').click();
                     break;

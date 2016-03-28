@@ -429,7 +429,7 @@ window.initDatamanager = function (genetic_profile_ids, oql_query, cancer_study_
 			},
 			'getMutationProfileId': function() {
 				return profile_ids.mutation_profile_id;
-			}
+                        }
 						
 		};
 		var fetchOncoprintGeneData = (function() {
@@ -727,7 +727,7 @@ window.initDatamanager = function (genetic_profile_ids, oql_query, cancer_study_
 			}
 			return ret;
 		};
-		
+                
 		return dm_ret;
 	})();
 };

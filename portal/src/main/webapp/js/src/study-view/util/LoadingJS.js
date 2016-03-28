@@ -87,7 +87,8 @@ var LoadingJS = (function(){
                     'StudyViewInitCNATab',
                     'StudyViewInitClinicalTab',
                     'StudyViewSurvivalPlotView',
-                    'StudyViewInitTables'
+                    'StudyViewInitTables',
+                    'StudyViewInitDashboardTab'
                 ],
                 controller: [
                     'StudyViewMainController',
@@ -95,7 +96,8 @@ var LoadingJS = (function(){
                     'StudyViewMutationsTabController',
                     'StudyViewCNATabController',
                     'StudyViewClinicalTabController',
-                    'StudyViewParams'
+                    'StudyViewParams',
+                    'StudyViewDashboardTabController'
                 ]
             };
             

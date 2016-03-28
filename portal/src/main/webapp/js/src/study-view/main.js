@@ -33,6 +33,7 @@
 
 //Charts Array, store all pie chart/ bar chart instances
 
+
 $(document).ready(function(){
     var parObject = {
         studyId: cancerStudyId,

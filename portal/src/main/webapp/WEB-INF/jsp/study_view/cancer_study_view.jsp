@@ -75,6 +75,9 @@ if (cnaProfile!=null) {
     cnaProfileStableId = cnaProfile.getStableId();
 }
 
+boolean hasDashboard = true;
+boolean showDashboardTab = hasDashboard;
+
 boolean hasCnaSegmentData = cancerStudy!=null && cancerStudy.hasCnaSegmentData();
 
 if (cancerStudyViewError!=null) {
@@ -120,6 +123,10 @@ if (cancerStudyViewError!=null) {
     <li><a href='#cna' id='study-tab-cna-a' class='study-tab' title='Copy Number Alterations'>Copy Number Alterations</a></li>
     <%}%>
     
+    <%if(showDashboardTab){%>
+    <li><a href='#dashboard' id='study-tab-dashboard-a' class='study-tab' title='Dashboard'>Dashboard</a></li>
+    <%}%>
+    
     </ul>
     
     <div class="study-section" id="summary">
@@ -139,6 +146,12 @@ if (cancerStudyViewError!=null) {
     <%if(showCNATab){%>
     <div class="study-section" id="cna">
         <%@ include file="cna.jsp" %>
+    </div>
+    <%}%>
+    
+    <%if(showDashboardTab){%>
+    <div class="study-section" id="dashboard">
+        <%@ include file="dashboard.jsp" %>
     </div>
     <%}%>
 
@@ -256,6 +269,14 @@ $('#study-tab-cna-a').click(function(){
         StudyViewCNATabController.getDataTable().fnAdjustColumnSizing();
     }
     window.location.hash = '#cna';
+});
+
+$('#study-tab-dashboard-a').click(function(){
+    if (!$(this).parent().hasClass('ui-state-disabled') && !$(this).hasClass("tab-clicked")) {
+        StudyViewDashboardTabController.init(cancer_study_id, caseIds, mutationProfileId, cnaProfileId);
+        $(this).addClass("tab-clicked");
+    }
+    window.location.hash = '#dashboard';
 });
 </script>
 

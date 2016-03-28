@@ -56,9 +56,11 @@
 <script type="text/javascript" src="js/lib/chosen.jquery.js?<%=GlobalProperties.getAppVersion()%>"></script>
 <script type="text/javascript" src="js/lib/underscore-min.js?<%=GlobalProperties.getAppVersion()%>"></script>
 <script type="text/javascript" src="js/lib/FileSaver.min.js?<%=GlobalProperties.getAppVersion()%>"></script>
+<script type="text/javascript" src="js/lib/plotly.min.js?<%=GlobalProperties.getAppVersion()%>"></script>
 
 <script type="text/javascript" src="js/src/d3.right-menu-stats.js?<%=GlobalProperties.getAppVersion()%>"></script>
 <script type="text/javascript" src="js/src/global-tabs.js?<%=GlobalProperties.getAppVersion()%>"></script>
 <script type="text/javascript" src="js/src/cbio-util.js?<%=GlobalProperties.getAppVersion()%>"></script>
 <script type="text/javascript" src="js/src/download-util.js?<%=GlobalProperties.getAppVersion()%>"></script>
 <script type="text/javascript" src="js/src/gene-symbol-validator.js?<%=GlobalProperties.getAppVersion()%>"></script>
+<script type="text/javascript" src="js/api/cbioportal-client.js"></script>
