@@ -35,6 +35,7 @@ Running the above command will create a docker network called "cbioportal_networ
 You can [download the seed DB here](Downloads.md#seed-database)
 
 ##### 2.1.2.2 Run the cBioPortal DB Container
+In the following command, replace `/PATH/TO/cbioportal-seed.sql.gz` by the local filename of the seed database file `cbioportal-seed.sql.gz` on the host machine (you can [download the seed DB here](Downloads.md#seed-database)). This will automatically import it before starting the MySQL server if the database does not yet exist, which may take a while.
 
 ```bash
 docker run -d --name "{CONTAINER_NAME}" \
@@ -44,7 +45,6 @@ docker run -d --name "{CONTAINER_NAME}" \
     -e MYSQL_ROOT_PASSWORD={MYSQL_ROOT_PASSWORD} \
     -e MYSQL_USER={MYSQL_USER} \
     -e MYSQL_PASSWORD={MYSQL_PASSWORD} \
-    -e MYSQL_DATABASE={MYSQL_DATABASE} \
     -v {/PATH/TO/cbioportal-seed.sql.gz}:/docker-entrypoint-initdb.d/cbioportal-seed.sql.gz:ro \
     mysql
 ```
