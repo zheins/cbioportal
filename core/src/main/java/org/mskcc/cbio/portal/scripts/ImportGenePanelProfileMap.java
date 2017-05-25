@@ -39,6 +39,8 @@ import org.mskcc.cbio.portal.model.GenePanel;
 import org.mskcc.cbio.portal.repository.GenePanelRepository;
 import org.cbioportal.model.*;
 import joptsimple.*;
+import org.mskcc.cbio.portal.dao.DaoGenePanelProfile;
+import org.mskcc.cbio.portal.dao.MySQLbulkLoader;
 import org.mskcc.cbio.portal.util.ProgressMonitor;
 import org.mskcc.cbio.portal.util.SpringUtil;
 
@@ -135,17 +137,14 @@ public class ImportGenePanelProfileMap extends ConsoleRunnable {
                 List<GenePanel> genePanelList = genePanelRepository.getGenePanelByStableId(data.get(i));
                 if (genePanelList != null && genePanelList.size() > 0) {
                     GenePanel genePanel = genePanelList.get(0);
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("sampleId", sample.getInternalId());
-                    map.put("profileId", profileIds.get(i));
-                    map.put("panelId", genePanel.getInternalId());
-                    genePanelRepository.insertGenePanelSampleProfileMap(map);
+                    DaoGenePanelProfile.addDatum(sample.getInternalId(), profileIds.get(i), genePanel.getInternalId());
                 }
                 else {
                     ProgressMonitor.logWarning("No gene panel exists: " + data.get(i));
                 }
             }
         }
+        MySQLbulkLoader.flushAll();
     }
 
     public List<String> getProfilesLine(BufferedReader buff) throws Exception {
