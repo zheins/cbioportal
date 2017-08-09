@@ -57,4 +57,8 @@ public class GenePanelMyBatisRepository implements GenePanelRepository {
         
         return genePanelMapper.getGenesOfPanels(genePanelIds);
     }
+
+	public void setGenePanelMapper(GenePanelMapper genePanelMapper) {
+		this.genePanelMapper = genePanelMapper;
+	}
 }
